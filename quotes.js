@@ -2,11 +2,11 @@
   Code by Gabriel Nunes
 */
 
-function inIframe () { try { return window.self !== window.top; } catch (e) { return true; } }
+function inIframe() { try { return window.self !== window.top; } catch (e) { return true; } }
 
 var colors = ['#16a085', '#27ae60', '#2c3e50', '#f39c12', '#e74c3c', '#9b59b6', '#FB6964', '#342224', "#472E32", "#BDBB99", "#77B1A9", "#73A857"];
 var currentQuote = '', currentAuthor = '';
-function openURL(url){
+function openURL(url) {
   window.open(url, 'Share', 'width=550, height=400, toolbar=0, scrollbars=1 ,location=0 ,statusbar=0,menubar=0, resizable=0');
 }
 function getQuote() {
@@ -17,21 +17,20 @@ function getQuote() {
       "Content-Type": "application/x-www-form-urlencoded"
     },
     url: 'https://andruxnet-random-famous-quotes.p.mashape.com/cat=',
-    success: function(r) {
+    success: function (r) {
       if (typeof r === 'string') {
-       r = JSON.parse(r);
+        r = JSON.parse(r);
       }
       currentQuote = r.quote;
       currentAuthor = r.author;
-      if(inIframe())
-      {
+      if (inIframe()) {
         $('#tweet-quote').attr('href', 'https://twitter.com/intent/tweet?hashtags=quotes&related=freecodecamp&text=' + encodeURIComponent('"' + currentQuote + '" ' + currentAuthor));
-        $('#tumblr-quote').attr('href', 'https://www.tumblr.com/widgets/share/tool?posttype=quote&tags=quotes,freecodecamp&caption='+encodeURIComponent(currentAuthor)+'&content=' + encodeURIComponent(currentQuote)+'&canonicalUrl=https%3A%2F%2Fwww.tumblr.com%2Fbuttons&shareSource=tumblr_share_button');
+        $('#tumblr-quote').attr('href', 'https://www.tumblr.com/widgets/share/tool?posttype=quote&tags=quotes,freecodecamp&caption=' + encodeURIComponent(currentAuthor) + '&content=' + encodeURIComponent(currentQuote) + '&canonicalUrl=https%3A%2F%2Fwww.tumblr.com%2Fbuttons&shareSource=tumblr_share_button');
       }
       $(".quote-text").animate({
-          opacity: 0
-        }, 500,
-        function() {
+        opacity: 0
+      }, 500,
+        function () {
           $(this).animate({
             opacity: 1
           }, 500);
@@ -39,9 +38,9 @@ function getQuote() {
         });
 
       $(".quote-author").animate({
-          opacity: 0
-        }, 500,
-        function() {
+        opacity: 0
+      }, 500,
+        function () {
           $(this).animate({
             opacity: 1
           }, 500);
@@ -59,17 +58,17 @@ function getQuote() {
     }
   });
 }
-$(document).ready(function() {
+$(document).ready(function () {
   getQuote();
   $('#new-quote').on('click', getQuote);
-  $('#tweet-quote').on('click', function() {
-    if(!inIframe()) {
+  $('#tweet-quote').on('click', function () {
+    if (!inIframe()) {
       openURL('https://twitter.com/intent/tweet?hashtags=quotes&related=freecodecamp&text=' + encodeURIComponent('"' + currentQuote + '" ' + currentAuthor));
     }
   });
-  $('#tumblr-quote').on('click', function() {
-    if(!inIframe()) {
-      openURL('https://www.tumblr.com/widgets/share/tool?posttype=quote&tags=quotes,freecodecamp&caption='+encodeURIComponent(currentAuthor)+'&content=' + encodeURIComponent(currentQuote)+'&canonicalUrl=https%3A%2F%2Fwww.tumblr.com%2Fbuttons&shareSource=tumblr_share_button');
+  $('#tumblr-quote').on('click', function () {
+    if (!inIframe()) {
+      openURL('https://www.tumblr.com/widgets/share/tool?posttype=quote&tags=quotes,freecodecamp&caption=' + encodeURIComponent(currentAuthor) + '&content=' + encodeURIComponent(currentQuote) + '&canonicalUrl=https%3A%2F%2Fwww.tumblr.com%2Fbuttons&shareSource=tumblr_share_button');
     }
   });
 });
