@@ -1,2 +1,3 @@
 # surge
-Using `surge.sh` to host a static info page
+
+Using [surge.sh](https://surge.sh) to host a static info page
